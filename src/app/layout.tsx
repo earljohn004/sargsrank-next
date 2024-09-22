@@ -1,4 +1,3 @@
-import { DevtoolsProvider } from "@providers/devtools";
 import { GitHubBanner, Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import { RefineSnackbarProvider, notificationProvider } from "@refinedev/mui";
@@ -12,6 +11,7 @@ import {
   pbAuthProvider,
   pbDataProvider,
 } from "@providers/data-provider/pocketbase";
+import { authProvider } from "@providers/auth-provider";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -34,49 +34,40 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense>
-          <GitHubBanner />
           <RefineKbarProvider>
             <ColorModeContextProvider defaultMode={defaultMode}>
               <RefineSnackbarProvider>
-                <DevtoolsProvider>
-                  <Refine
-                    routerProvider={routerProvider}
-                    dataProvider={pbDataProvider}
-                    notificationProvider={notificationProvider}
-                    authProvider={pbAuthProvider}
-                    resources={[
-                      {
-                        name: "blog_posts",
-                        list: "/blog-posts",
-                        create: "/blog-posts/create",
-                        edit: "/blog-posts/edit/:id",
-                        show: "/blog-posts/show/:id",
-                        meta: {
-                          canDelete: true,
-                        },
-                      },
-                      {
-                        name: "categories",
-                        list: "/categories",
-                        create: "/categories/create",
-                        edit: "/categories/edit/:id",
-                        show: "/categories/show/:id",
-                        meta: {
-                          canDelete: true,
-                        },
-                      },
-                    ]}
-                    options={{
-                      syncWithLocation: true,
-                      warnWhenUnsavedChanges: true,
-                      useNewQueryKeys: true,
-                      projectId: "M6B2fN-6Vjkjg-o9YblO",
-                    }}
-                  >
-                    {children}
-                    <RefineKbar />
-                  </Refine>
-                </DevtoolsProvider>
+                <Refine
+                  routerProvider={routerProvider}
+                  dataProvider={pbDataProvider}
+                  notificationProvider={notificationProvider}
+                  authProvider={authProvider}
+                  resources={[
+                    {
+                      name: "sales",
+                      list: "/sales",
+                      create: "/sales/create",
+                      edit: "/sales/edit/:id",
+                      show: "/sales/show/:id",
+                    },
+                    {
+                      name: "profile",
+                      list: "/profile",
+                      create: "/profile/create",
+                      edit: "/profile/edit/:id",
+                      show: "/profile/show/:id",
+                    },
+                  ]}
+                  options={{
+                    syncWithLocation: true,
+                    warnWhenUnsavedChanges: true,
+                    useNewQueryKeys: true,
+                    projectId: "M6B2fN-6Vjkjg-o9YblO",
+                  }}
+                >
+                  {children}
+                  <RefineKbar />
+                </Refine>
               </RefineSnackbarProvider>
             </ColorModeContextProvider>
           </RefineKbarProvider>
