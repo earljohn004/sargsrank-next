@@ -1,4 +1,4 @@
-import { GitHubBanner, Refine } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import { RefineSnackbarProvider, notificationProvider } from "@refinedev/mui";
 import routerProvider from "@refinedev/nextjs-router";
@@ -7,10 +7,7 @@ import { cookies } from "next/headers";
 import React, { Suspense } from "react";
 
 import { ColorModeContextProvider } from "@contexts/color-mode";
-import {
-  pbAuthProvider,
-  pbDataProvider,
-} from "@providers/data-provider/pocketbase";
+import { pbDataProvider } from "@providers/data-provider/pocketbase";
 import { authProvider } from "@providers/auth-provider";
 
 export const metadata: Metadata = {
