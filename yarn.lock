@@ -4731,6 +4731,11 @@ pluralize@^8.0.0:
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
+pocketbase@^0.21.5:
+  version "0.21.5"
+  resolved "https://registry.yarnpkg.com/pocketbase/-/pocketbase-0.21.5.tgz#10714d264f80e5c6654a54b41ecb2219da497939"
+  integrity sha512-bnI/uinnQps+ElSlzxkc4yvwuSFfKcoszDtXH/4QT2FhGq2mJVUvDlxn+rjRXVntUjPfmMG5LEPZ1eGqV6ssog==
+
 possible-typed-array-names@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/possible-typed-array-names/-/possible-typed-array-names-1.0.0.tgz#89bb63c6fada2c3e90adc4a647beeeb39cc7bf8f"
@@ -4968,6 +4973,11 @@ redeyed@~2.1.0:
   integrity sha512-FNpGGo1DycYAdnrKFxCMmKYgo/mILAqtRYbkdQD8Ep/Hk2PQ5+aEAEx+IU713RTDmuBaH0c8P5ZozurNu5ObRQ==
   dependencies:
     esprima "~4.0.0"
+
+refine-pocketbase@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/refine-pocketbase/-/refine-pocketbase-0.0.9.tgz#ccb9f0396cbc9eb9a509e05cbc3ebfb832267469"
+  integrity sha512-r9iTRXK5Z/sSHAeqgp7QTVoJ12VpoY4ugca3tzpeGfAJUwcFQvR5PI1+R4n+DS/pgAiWSPtBKzygutvsrh7qNA==
 
 reflect.getprototypeof@^1.0.4:
   version "1.0.6"

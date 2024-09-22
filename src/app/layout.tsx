@@ -8,8 +8,10 @@ import { cookies } from "next/headers";
 import React, { Suspense } from "react";
 
 import { ColorModeContextProvider } from "@contexts/color-mode";
-import { authProvider } from "@providers/auth-provider";
-import { dataProvider } from "@providers/data-provider";
+import {
+  pbAuthProvider,
+  pbDataProvider,
+} from "@providers/data-provider/pocketbase";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -39,9 +41,9 @@ export default function RootLayout({
                 <DevtoolsProvider>
                   <Refine
                     routerProvider={routerProvider}
-                    dataProvider={dataProvider}
+                    dataProvider={pbDataProvider}
                     notificationProvider={notificationProvider}
-                    authProvider={authProvider}
+                    authProvider={pbAuthProvider}
                     resources={[
                       {
                         name: "blog_posts",
