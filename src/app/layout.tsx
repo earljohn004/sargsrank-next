@@ -33,7 +33,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense>
-          <GitHubBanner />
           <RefineKbarProvider>
             <ColorModeContextProvider defaultMode={defaultMode}>
               <RefineSnackbarProvider>
@@ -45,31 +44,14 @@ export default function RootLayout({
                     notificationProvider={notificationProvider}
                     resources={[
                       {
-                        name: "blog_posts",
-                        list: "/blog-posts",
-                        create: "/blog-posts/create",
-                        edit: "/blog-posts/edit/:id",
-                        show: "/blog-posts/show/:id",
-                        meta: {
-                          canDelete: true,
-                        },
-                      },
-                      {
-                        name: "categories",
-                        list: "/categories",
-                        create: "/categories/create",
-                        edit: "/categories/edit/:id",
-                        show: "/categories/show/:id",
-                        meta: {
-                          canDelete: true,
-                        },
-                      },
-                      {
                         name: "profile",
-                        list: "/profile",
+                        list: "/profiles",
                         create: "/profile/create",
-                        edit: "/profile/edit/:id",
-                        show: "/profile/show/:id",
+                        edit: "/profiles/edit/:id",
+                        show: "/profiles/show/:id",
+                        meta: {
+                          label: "Profile",
+                        },
                       },
                     ]}
                     options={{
