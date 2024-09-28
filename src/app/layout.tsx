@@ -45,20 +45,25 @@ export default function RootLayout({
                     resources={[
                       {
                         name: "profile",
-                        list: "/profiles",
-                        create: "/profile/create",
-                        edit: "/profiles/edit/:id",
-                        show: "/profiles/show/:id",
                         meta: {
                           label: "Profile",
                         },
                       },
                       {
-                        name: "history",
+                        name: "profile-overview",
+                        list: "/profiles",
+                        meta: {
+                          parent: "profile",
+                          label: "Overview",
+                        },
+                      },
+                      {
+                        name: "profile-history",
                         list: "/profiles/history",
                         meta: {
+                          parent: "profile",
                           label: "History",
-                        }
+                        },
                       },
                     ]}
                     options={{

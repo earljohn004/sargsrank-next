@@ -1,5 +1,10 @@
 import { ProfileList } from "@components/profiles";
 
 export default function ProfileListPage() {
-    return <ProfileList />;
-};
+  return (
+    <>
+      This is ProfileList Page
+      <ProfileList />;
+    </>
+  );
+}
