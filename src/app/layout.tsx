@@ -64,13 +64,20 @@ export default function RootLayout({
                           canDelete: true,
                         },
                       },
+                      {
+                        name: "profile",
+                        list: "/profile",
+                        create: "/profile/create",
+                        edit: "/profile/edit/:id",
+                        show: "/profile/show/:id",
+                      },
                     ]}
                     options={{
                       syncWithLocation: true,
                       warnWhenUnsavedChanges: true,
                       useNewQueryKeys: true,
                       projectId: "kjgbR1-y8gG2L-MC2Fl7",
-                      title: { text: "Refine Project", icon: <AppIcon /> },
+                      title: { text: "Sargs-Rank", icon: <AppIcon /> },
                     }}
                   >
                     {children}
