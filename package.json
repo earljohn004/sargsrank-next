@@ -1,5 +1,5 @@
 {
-  "name": "sargsrank-next",
+  "name": "refine-project",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -22,19 +22,17 @@
     "@refinedev/cli": "^2.16.21",
     "@refinedev/core": "^4.47.1",
     "@refinedev/devtools": "^1.1.32",
-    "@refinedev/inferencer": "^4.7.0",
     "@refinedev/kbar": "^1.3.6",
     "@refinedev/mui": "^5.14.4",
-    "@refinedev/nextjs-router": "^6.0.0",
+    "@refinedev/nextjs-router": "^6.1.0",
     "@refinedev/react-hook-form": "^4.8.14",
-    "@refinedev/supabase": "^5.9.4",
-    "@supabase/supabase-js": "2.7.0",
+    "@refinedev/supabase": "^5.7.4",
+    "@supabase/ssr": "^0.5.1",
+    "@supabase/supabase-js": "2.43.4",
     "js-cookie": "^3.0.5",
     "next": "^14.1.0",
-    "pocketbase": "^0.21.5",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "refine-pocketbase": "^0.0.9"
+    "react-dom": "^18.0.0"
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.6",
@@ -48,6 +46,6 @@
     "typescript": "^5.4.2"
   },
   "refine": {
-    "projectId": "M6B2fN-6Vjkjg-o9YblO"
+    "projectId": "kjgbR1-y8gG2L-MC2Fl7"
   }
 }

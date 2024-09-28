@@ -1,4 +1,4 @@
-# sargsrank-next
+# refine-project
 
 <div align="center" style="margin: 30px;">
     <a href="https://refine.dev">
@@ -20,28 +20,27 @@ Refine's hooks and components simplifies the development process and eliminates 
 ### Running the development server.
 
 ```bash
-    yarn dev
+    npm run dev
 ```
 
 ### Building for production.
 
 ```bash
-    yarn build
+    npm run build
 ```
 
 ### Running the production server.
 
 ```bash
-    yarn start
+    npm run start
 ```
 
 ## Learn More
 
 To learn more about **Refine**, please check out the [Documentation](https://refine.dev/docs)
 
-- **REST Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
+- **Supabase Data Provider** [Docs](https://refine.dev/docs/core/providers/data-provider/#overview)
 - **Material UI** [Docs](https://refine.dev/docs/ui-frameworks/mui/tutorial/)
-- **Custom Auth Provider** [Docs](https://refine.dev/docs/core/providers/auth-provider/)
 
 ## License
 

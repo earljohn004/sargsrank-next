@@ -1,14 +1,14 @@
-import { Refine } from "@refinedev/core";
-import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-import { RefineSnackbarProvider, notificationProvider } from "@refinedev/mui";
-import routerProvider from "@refinedev/nextjs-router";
+import { DevtoolsProvider } from "@providers/devtools";
+import { GitHubBanner, Refine } from "@refinedev/core";
+import { notificationProvider, RefineSnackbarProvider } from "@refinedev/mui";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import React, { Suspense } from "react";
 
+import { AppIcon } from "@components/app-icon";
 import { ColorModeContextProvider } from "@contexts/color-mode";
-import { pbDataProvider } from "@providers/data-provider/pocketbase";
-import { authProvider } from "@providers/auth-provider";
+import { authProviderClient } from "@providers/auth-provider";
+import { dataProvider } from "@providers/data-provider";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -31,22 +31,15 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense>
-          <RefineKbarProvider>
-            <ColorModeContextProvider defaultMode={defaultMode}>
-              <RefineSnackbarProvider>
+          <GitHubBanner />
+          <ColorModeContextProvider defaultMode={defaultMode}>
+            <RefineSnackbarProvider>
+              <DevtoolsProvider>
                 <Refine
-                  routerProvider={routerProvider}
-                  dataProvider={pbDataProvider}
+                  authProvider={authProviderClient}
+                  dataProvider={dataProvider}
                   notificationProvider={notificationProvider}
-                  authProvider={authProvider}
                   resources={[
-                    {
-                      name: "sales",
-                      list: "/sales",
-                      create: "/sales/create",
-                      edit: "/sales/edit/:id",
-                      show: "/sales/show/:id",
-                    },
                     {
                       name: "profile",
                       list: "/profile",
@@ -59,15 +52,15 @@ export default function RootLayout({
                     syncWithLocation: true,
                     warnWhenUnsavedChanges: true,
                     useNewQueryKeys: true,
-                    projectId: "M6B2fN-6Vjkjg-o9YblO",
+                    projectId: "kjgbR1-y8gG2L-MC2Fl7",
+                    title: { text: "Refine Project", icon: <AppIcon /> },
                   }}
                 >
                   {children}
-                  <RefineKbar />
                 </Refine>
-              </RefineSnackbarProvider>
-            </ColorModeContextProvider>
-          </RefineKbarProvider>
+              </DevtoolsProvider>
+            </RefineSnackbarProvider>
+          </ColorModeContextProvider>
         </Suspense>
       </body>
     </html>
