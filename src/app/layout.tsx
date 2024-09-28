@@ -53,6 +53,13 @@ export default function RootLayout({
                           label: "Profile",
                         },
                       },
+                      {
+                        name: "history",
+                        list: "/profiles/history",
+                        meta: {
+                          label: "History",
+                        }
+                      },
                     ]}
                     options={{
                       syncWithLocation: true,
