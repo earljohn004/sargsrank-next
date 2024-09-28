@@ -54,7 +54,7 @@ export default function BlogPostCreate() {
         />
         <Controller
           control={control}
-          name={"category.id"}
+          name={"categoryId"}
           rules={{ required: "This field is required" }}
           // eslint-disable-next-line
           defaultValue={null as any}
@@ -91,8 +91,8 @@ export default function BlogPostCreate() {
                   label={"Category"}
                   margin="normal"
                   variant="outlined"
-                  error={!!(errors as any)?.category?.id}
-                  helperText={(errors as any)?.category?.id?.message}
+                  error={!!(errors as any)?.categories?.id}
+                  helperText={(errors as any)?.categories?.id?.message}
                   required
                 />
               )}

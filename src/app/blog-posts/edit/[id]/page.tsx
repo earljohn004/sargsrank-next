@@ -14,13 +14,19 @@ export default function BlogPostEdit() {
     register,
     control,
     formState: { errors },
-  } = useForm({});
+  } = useForm({
+    refineCoreProps: {
+      meta: {
+        select: "*, categories(id,title)",
+      },
+    },
+  });
 
   const blogPostsData = queryResult?.data?.data;
 
   const { autocompleteProps: categoryAutocompleteProps } = useAutocomplete({
     resource: "categories",
-    defaultValue: blogPostsData?.category?.id,
+    defaultValue: blogPostsData?.categories?.id,
   });
 
   return (
@@ -45,7 +51,7 @@ export default function BlogPostEdit() {
         />
         <Controller
           control={control}
-          name={"category.id"}
+          name={"categoryId"}
           rules={{ required: "This field is required" }}
           // eslint-disable-next-line
           defaultValue={null as any}
@@ -82,8 +88,8 @@ export default function BlogPostEdit() {
                   label={"Category"}
                   margin="normal"
                   variant="outlined"
-                  error={!!(errors as any)?.category?.id}
-                  helperText={(errors as any)?.category?.id?.message}
+                  error={!!(errors as any)?.categories?.id}
+                  helperText={(errors as any)?.categories?.id?.message}
                   required
                 />
               )}

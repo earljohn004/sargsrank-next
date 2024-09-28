@@ -16,13 +16,16 @@ import React from "react";
 export default function BlogPostList() {
   const { dataGridProps } = useDataGrid({
     syncWithLocation: true,
+    meta: {
+      select: "*, categories(id,title)",
+    },
   });
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
     resource: "categories",
     ids:
       dataGridProps?.rows
-        ?.map((item: any) => item?.category?.id)
+        ?.map((item: any) => item?.categories?.id)
         .filter(Boolean) ?? [],
     queryOptions: {
       enabled: !!dataGridProps?.rows,
@@ -54,12 +57,12 @@ export default function BlogPostList() {
         },
       },
       {
-        field: "category",
+        field: "categories",
         flex: 1,
         headerName: "Category",
         minWidth: 300,
         valueGetter: ({ row }) => {
-          const value = row?.category;
+          const value = row?.categories;
           return value;
         },
         renderCell: function render({ value }) {
