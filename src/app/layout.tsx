@@ -1,14 +1,16 @@
-import { Refine } from "@refinedev/core";
+import { DevtoolsProvider } from "@providers/devtools";
+import { GitHubBanner, Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
-import { RefineSnackbarProvider, notificationProvider } from "@refinedev/mui";
+import { notificationProvider, RefineSnackbarProvider } from "@refinedev/mui";
 import routerProvider from "@refinedev/nextjs-router";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import React, { Suspense } from "react";
 
+import { AppIcon } from "@components/app-icon";
 import { ColorModeContextProvider } from "@contexts/color-mode";
-import { pbDataProvider } from "@providers/data-provider/pocketbase";
-import { authProvider } from "@providers/auth-provider";
+import { authProviderClient } from "@providers/auth-provider";
+import { dataProvider } from "@providers/data-provider";
 
 export const metadata: Metadata = {
   title: "Refine",
@@ -31,40 +33,50 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Suspense>
+          <GitHubBanner />
           <RefineKbarProvider>
             <ColorModeContextProvider defaultMode={defaultMode}>
               <RefineSnackbarProvider>
-                <Refine
-                  routerProvider={routerProvider}
-                  dataProvider={pbDataProvider}
-                  notificationProvider={notificationProvider}
-                  authProvider={authProvider}
-                  resources={[
-                    {
-                      name: "sales",
-                      list: "/sales",
-                      create: "/sales/create",
-                      edit: "/sales/edit/:id",
-                      show: "/sales/show/:id",
-                    },
-                    {
-                      name: "profile",
-                      list: "/profile",
-                      create: "/profile/create",
-                      edit: "/profile/edit/:id",
-                      show: "/profile/show/:id",
-                    },
-                  ]}
-                  options={{
-                    syncWithLocation: true,
-                    warnWhenUnsavedChanges: true,
-                    useNewQueryKeys: true,
-                    projectId: "M6B2fN-6Vjkjg-o9YblO",
-                  }}
-                >
-                  {children}
-                  <RefineKbar />
-                </Refine>
+                <DevtoolsProvider>
+                  <Refine
+                    routerProvider={routerProvider}
+                    authProvider={authProviderClient}
+                    dataProvider={dataProvider}
+                    notificationProvider={notificationProvider}
+                    resources={[
+                      {
+                        name: "blog_posts",
+                        list: "/blog-posts",
+                        create: "/blog-posts/create",
+                        edit: "/blog-posts/edit/:id",
+                        show: "/blog-posts/show/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                      },
+                      {
+                        name: "categories",
+                        list: "/categories",
+                        create: "/categories/create",
+                        edit: "/categories/edit/:id",
+                        show: "/categories/show/:id",
+                        meta: {
+                          canDelete: true,
+                        },
+                      },
+                    ]}
+                    options={{
+                      syncWithLocation: true,
+                      warnWhenUnsavedChanges: true,
+                      useNewQueryKeys: true,
+                      projectId: "kjgbR1-y8gG2L-MC2Fl7",
+                      title: { text: "Refine Project", icon: <AppIcon /> },
+                    }}
+                  >
+                    {children}
+                    <RefineKbar />
+                  </Refine>
+                </DevtoolsProvider>
               </RefineSnackbarProvider>
             </ColorModeContextProvider>
           </RefineKbarProvider>
