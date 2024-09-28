@@ -15,11 +15,12 @@ import React from "react";
 
 export const ProfileList = () => {
   const { dataGridProps } = useDataGrid({
+    resource: "profile-overview",
     syncWithLocation: true,
   });
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: "profile",
+    resource: "profile-overview",
     ids:
       dataGridProps?.rows
         ?.map((item: any) => item?.categories?.id)

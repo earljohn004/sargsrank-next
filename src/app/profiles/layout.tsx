@@ -5,7 +5,6 @@ import { authProviderServer } from "@providers/auth-provider";
 import { ThemedLayoutV2 } from "@refinedev/mui";
 import { redirect, usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import ProfileListPage from "./page";
 import { Stack } from "@mui/material";
 
 export default async function Layout({ children }: React.PropsWithChildren) {

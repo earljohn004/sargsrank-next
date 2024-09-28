@@ -51,7 +51,7 @@ export default function RootLayout({
                       },
                       {
                         name: "profile-overview",
-                        list: "/profiles",
+                        list: "/profiles/overview",
                         meta: {
                           parent: "profile",
                           label: "Overview",
