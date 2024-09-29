@@ -1,11 +1,8 @@
 import { Header } from "@components/header";
-import { HistoryList } from "@components/histories";
-import { ProfileList } from "@components/profiles";
 import { authProviderServer } from "@providers/auth-provider";
 import { ThemedLayoutV2 } from "@refinedev/mui";
-import { redirect, usePathname } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { Stack } from "@mui/material";
+import { redirect } from "next/navigation";
+import React from "react";
 
 export default async function Layout({ children }: React.PropsWithChildren) {
   const data = await getData();
@@ -16,7 +13,7 @@ export default async function Layout({ children }: React.PropsWithChildren) {
   return (
     <ThemedLayoutV2 Header={Header}>
       This is the layout
-      <Stack>{children}</Stack>
+      {children}
     </ThemedLayoutV2>
   );
 }

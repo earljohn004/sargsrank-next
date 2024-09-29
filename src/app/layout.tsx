@@ -1,5 +1,5 @@
 import { DevtoolsProvider } from "@providers/devtools";
-import { GitHubBanner, Refine } from "@refinedev/core";
+import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import { notificationProvider, RefineSnackbarProvider } from "@refinedev/mui";
 import routerProvider from "@refinedev/nextjs-router";
@@ -62,7 +62,7 @@ export default function RootLayout({
                         list: "/profiles/history",
                         meta: {
                           parent: "profile",
-                          label: "History",
+                          label: "Match History",
                         },
                       },
                     ]}
