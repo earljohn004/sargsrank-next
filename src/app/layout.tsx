@@ -65,6 +65,29 @@ export default function RootLayout({
                           label: "Match History",
                         },
                       },
+                      {
+                        name: "games",
+                        meta: {
+                          label: "Games",
+                        },
+                      },
+                      {
+                        name: "games-progress",
+                        create: "/games/create",
+                        list: "/games/progress",
+                        meta: {
+                          parent: "games",
+                          label: "In Progress",
+                        },
+                      },
+                      {
+                        name: "games-history",
+                        list: "/games/history",
+                        meta: {
+                          parent: "games",
+                          label: "History",
+                        },
+                      },
                     ]}
                     options={{
                       syncWithLocation: true,
