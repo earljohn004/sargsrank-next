@@ -13,14 +13,13 @@ import {
 } from "@refinedev/mui";
 import React from "react";
 
-export const ProfileList = () => {
+export const HistoryList = () => {
   const { dataGridProps } = useDataGrid({
-    resource: "profile-overview",
     syncWithLocation: true,
   });
 
   const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: "profile-overview",
+    resource: "history",
     ids:
       dataGridProps?.rows
         ?.map((item: any) => item?.categories?.id)
