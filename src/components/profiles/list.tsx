@@ -71,7 +71,7 @@ export const ProfileList = () => {
       //     minWidth: 80,
       //   },
     ],
-    [categoryData]
+    [categoryData],
   );
 
   return (

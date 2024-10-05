@@ -10,7 +10,9 @@
     "build": "refine build",
     "start": "refine start",
     "lint": "next lint",
-    "refine": "refine"
+    "refine": "refine",
+    "lint:fix": "eslint . --fix",
+    "lint:check": "eslint ."
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
@@ -35,6 +37,7 @@
     "react-dom": "^18.0.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.12.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^18.16.2",
     "@types/react": "^18.0.0",
@@ -43,6 +46,9 @@
     "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "^14.1.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
     "typescript": "^5.4.2"
   },
   "refine": {
