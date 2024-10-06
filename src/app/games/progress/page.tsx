@@ -2,7 +2,7 @@
 
 import { Button, Typography } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import { DateField, List, useDataGrid } from "@refinedev/mui";
+import { DateField, List, ShowButton, useDataGrid } from "@refinedev/mui";
 import React from "react";
 
 const GamesProgress = () => {
@@ -59,7 +59,6 @@ const GamesProgress = () => {
         minWidth: 200,
         renderCell: (params) => {
           const gamePlayers = params?.row.game_players;
-          console.log("EARL_DEBUG", gamePlayers);
           return (
             <>
               {gamePlayers.map((player: any, index: number) => (
@@ -82,9 +81,25 @@ const GamesProgress = () => {
         flex: 1,
         headerName: "Created at",
         minWidth: 250,
-        renderCell: function render({ value }) {
+        renderCell: ({ value }) => {
           return <DateField value={value} />;
         },
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        sortable: false,
+        renderCell: ({ row }) => {
+          console.log(row);
+          return (
+            <>
+              <ShowButton hideText recordItemId={row.game_id} />
+            </>
+          );
+        },
+        align: "center",
+        headerAlign: "center",
+        minWidth: 80,
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
