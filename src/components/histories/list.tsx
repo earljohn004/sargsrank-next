@@ -70,7 +70,7 @@ export const HistoryList = () => {
       //     minWidth: 80,
       //   },
     ],
-    [categoryData],
+    [],
   );
 
   return (
