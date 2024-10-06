@@ -8,6 +8,10 @@ const GamesProgress = () => {
   const { dataGridProps } = useDataGrid({
     resource: "game_information",
     syncWithLocation: true,
+    meta: {
+      select:
+        "*, game_players!inner(player_id), player_information!inner(first_name, last_name)",
+    },
   });
 
   const columns = React.useMemo<GridColDef[]>(
@@ -31,6 +35,22 @@ const GamesProgress = () => {
         field: "status",
         headerName: "Status",
         type: "text",
+      },
+      {
+        field: "player_names",
+        headerName: "Players",
+        minWidth: 400,
+        type: "text",
+        valueGetter: (params) => {
+          const players = params.row?.player_information;
+          if (!players || players.length === 0) return "No Players";
+
+          return players
+            .map((player: any) =>
+              `${player.first_name ?? ""} ${player.last_name ?? ""}`.trim(),
+            )
+            .join(" vs ");
+        },
       },
       {
         field: "created_at",
