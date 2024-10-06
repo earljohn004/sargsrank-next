@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, TextField } from "@mui/material";
+import { Box, MenuItem, TextField } from "@mui/material";
 import { Create } from "@refinedev/mui";
 import { useForm } from "@refinedev/react-hook-form";
 
@@ -34,18 +34,20 @@ const GamesCreate = () => {
           label="Player 2"
         />
         <TextField
-          {...register("game_name", {
-            required: "This field is required",
-          })}
+          select
+          label="Game Type"
+          {...register("game_mode", { required: "This field is required" })}
           margin="normal"
           fullWidth
-          InputLabelProps={{ shrink: true }}
-          type="text"
-          label="Game Mode"
-          name="game_name"
-        />
+        >
+          <MenuItem value="8_BALL">8 BALL</MenuItem>
+          <MenuItem value="9_BALL">9 BALL</MenuItem>
+          <MenuItem value="10_BALL">10 BALL</MenuItem>
+          <MenuItem value="15_BALL">15 BALL</MenuItem>
+        </TextField>
+
         <TextField
-          {...register("game_type", {
+          {...register("game_race", {
             required: "This field is required",
           })}
           margin="normal"
@@ -53,7 +55,7 @@ const GamesCreate = () => {
           InputLabelProps={{ shrink: true }}
           type="number"
           label="Race"
-          name="game_type"
+          name="game_race"
         />
       </Box>
     </Create>

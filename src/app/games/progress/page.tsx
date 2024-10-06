@@ -6,41 +6,36 @@ import React from "react";
 
 const GamesProgress = () => {
   const { dataGridProps } = useDataGrid({
-    resource: "ongoing_games",
+    resource: "game_information",
     syncWithLocation: true,
   });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
       {
-        field: "ongoing_game_id",
-        headerName: "Ongoing Game ID",
-        type: "number",
-      },
-      {
         field: "game_id",
         headerName: "Game ID",
         type: "string",
       },
       {
-        field: "team_1_score",
-        headerName: "Team 1 Score",
+        field: "game_mode",
+        headerName: "Billiard Game Mode",
+        type: "text",
+      },
+      {
+        field: "game_race",
+        headerName: "Race",
         type: "number",
       },
       {
-        field: "team_2_score",
-        headerName: "Team 2 Score",
-        type: "number",
+        field: "status",
+        headerName: "Status",
+        type: "text",
       },
       {
-        field: "best_of",
-        headerName: "Best of",
-        type: "number",
-      },
-      {
-        field: "started_at",
+        field: "created_at",
         flex: 1,
-        headerName: "Started at",
+        headerName: "Created at",
         minWidth: 250,
         renderCell: function render({ value }) {
           return <DateField value={value} />;
@@ -54,7 +49,7 @@ const GamesProgress = () => {
   return (
     <List>
       <DataGrid
-        getRowId={(row) => row.ongoing_game_id}
+        getRowId={(row) => row.game_id}
         {...dataGridProps}
         columns={columns}
         autoHeight
