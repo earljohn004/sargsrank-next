@@ -1,4 +1,3 @@
-import { DevtoolsProvider } from "@providers/devtools";
 import { Refine } from "@refinedev/core";
 import { RefineKbar, RefineKbarProvider } from "@refinedev/kbar";
 import { notificationProvider, RefineSnackbarProvider } from "@refinedev/mui";
@@ -36,71 +35,69 @@ export default function RootLayout({
           <RefineKbarProvider>
             <ColorModeContextProvider defaultMode={defaultMode}>
               <RefineSnackbarProvider>
-                <DevtoolsProvider>
-                  <Refine
-                    routerProvider={routerProvider}
-                    authProvider={authProviderClient}
-                    dataProvider={dataProvider}
-                    notificationProvider={notificationProvider}
-                    resources={[
-                      {
-                        name: "profile",
-                        meta: {
-                          label: "Profile",
-                        },
+                <Refine
+                  routerProvider={routerProvider}
+                  authProvider={authProviderClient}
+                  dataProvider={dataProvider}
+                  notificationProvider={notificationProvider}
+                  resources={[
+                    {
+                      name: "profile",
+                      meta: {
+                        label: "Profile",
                       },
-                      {
-                        name: "profile-overview",
-                        list: "/profiles/overview",
-                        meta: {
-                          parent: "profile",
-                          label: "Overview",
-                        },
+                    },
+                    {
+                      name: "profile-overview",
+                      list: "/profiles/overview",
+                      meta: {
+                        parent: "profile",
+                        label: "Overview",
                       },
-                      {
-                        name: "profile-history",
-                        list: "/profiles/history",
-                        meta: {
-                          parent: "profile",
-                          label: "Match History",
-                        },
+                    },
+                    {
+                      name: "profile-history",
+                      list: "/profiles/history",
+                      meta: {
+                        parent: "profile",
+                        label: "Match History",
                       },
-                      {
-                        name: "games",
-                        meta: {
-                          label: "Games",
-                        },
+                    },
+                    {
+                      name: "games",
+                      meta: {
+                        label: "Games",
                       },
-                      {
-                        name: "games-progress",
-                        create: "/games/create",
-                        list: "/games/progress",
-                        meta: {
-                          parent: "games",
-                          label: "In Progress",
-                        },
+                    },
+                    {
+                      name: "games-progress",
+                      create: "/games/create",
+                      list: "/games/progress",
+                      meta: {
+                        parent: "games",
+                        label: "In Progress",
                       },
-                      {
-                        name: "games-history",
-                        list: "/games/history",
-                        meta: {
-                          parent: "games",
-                          label: "History",
-                        },
+                    },
+                    {
+                      name: "games-history",
+                      list: "/games/history",
+                      meta: {
+                        parent: "games",
+                        label: "History",
                       },
-                    ]}
-                    options={{
-                      syncWithLocation: true,
-                      warnWhenUnsavedChanges: true,
-                      useNewQueryKeys: true,
-                      projectId: "kjgbR1-y8gG2L-MC2Fl7",
-                      title: { text: "Sargs-Rank", icon: <AppIcon /> },
-                    }}
-                  >
-                    {children}
-                    <RefineKbar />
-                  </Refine>
-                </DevtoolsProvider>
+                    },
+                  ]}
+                  options={{
+                    syncWithLocation: true,
+                    warnWhenUnsavedChanges: true,
+                    useNewQueryKeys: true,
+                    projectId: "kjgbR1-y8gG2L-MC2Fl7",
+                    title: { text: "Sargs-Rank", icon: <AppIcon /> },
+                  }}
+                >
+                  {children}
+                  <RefineKbar />
+                </Refine>
               </RefineSnackbarProvider>
             </ColorModeContextProvider>
           </RefineKbarProvider>

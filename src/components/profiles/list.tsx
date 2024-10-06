@@ -19,16 +19,16 @@ export const ProfileList = () => {
     syncWithLocation: true,
   });
 
-  const { data: categoryData, isLoading: categoryIsLoading } = useMany({
-    resource: "profile-overview",
-    ids:
-      dataGridProps?.rows
-        ?.map((item: any) => item?.categories?.id)
-        .filter(Boolean) ?? [],
-    queryOptions: {
-      enabled: !!dataGridProps?.rows,
-    },
-  });
+  // const { data: categoryData, isLoading: categoryIsLoading } = useMany({
+  //   resource: "profile-overview",
+  //   ids:
+  //     dataGridProps?.rows
+  //       ?.map((item: any) => item?.categories?.id)
+  //       .filter(Boolean) ?? [],
+  //   queryOptions: {
+  //     enabled: !!dataGridProps?.rows,
+  //   },
+  // });
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -71,7 +71,7 @@ export const ProfileList = () => {
       //     minWidth: 80,
       //   },
     ],
-    [categoryData],
+    [],
   );
 
   return (
