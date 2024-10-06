@@ -1,5 +1,6 @@
 "use client";
 
+import { Button, Typography } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
 import { DateField, List, useDataGrid } from "@refinedev/mui";
 import React from "react";
@@ -10,7 +11,7 @@ const GamesProgress = () => {
     syncWithLocation: true,
     meta: {
       select:
-        "*, game_players!inner(player_id), player_information!inner(first_name, last_name)",
+        "*, game_players!inner(player_id, approval_status), player_information!inner(first_name, last_name)",
     },
   });
 
@@ -50,6 +51,30 @@ const GamesProgress = () => {
               `${player.first_name ?? ""} ${player.last_name ?? ""}`.trim(),
             )
             .join(" vs ");
+        },
+      },
+      {
+        field: "approval_status",
+        headerName: "Approval Status",
+        minWidth: 200,
+        renderCell: (params) => {
+          const gamePlayers = params?.row.game_players;
+          console.log("EARL_DEBUG", gamePlayers);
+          return (
+            <>
+              {gamePlayers.map((player: any, index: number) => (
+                <div key={index}>
+                  {player.approval_status === "PENDING" ? (
+                    <Button variant="contained" sx={{ marginRight: 1 }}>
+                      Accept
+                    </Button>
+                  ) : (
+                    <Typography variant="h3">Joined</Typography>
+                  )}
+                </div>
+              ))}
+            </>
+          );
         },
       },
       {
