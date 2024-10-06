@@ -37,9 +37,20 @@ const GamesProgress = () => {
         type: "text",
       },
       {
-        field: "player_id",
-        headerName: "Player 1",
+        field: "player_names",
+        headerName: "Players",
+        minWidth: 400,
         type: "text",
+        valueGetter: (params) => {
+          const players = params.row?.player_information;
+          if (!players || players.length === 0) return "No Players";
+
+          return players
+            .map((player: any) =>
+              `${player.first_name ?? ""} ${player.last_name ?? ""}`.trim(),
+            )
+            .join(" vs ");
+        },
       },
       {
         field: "created_at",
