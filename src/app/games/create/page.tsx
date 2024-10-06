@@ -10,7 +10,7 @@ const GamesCreate = () => {
     refineCore: { formLoading },
     register,
     formState: { errors },
-  } = useForm({});
+  } = useForm({ refineCoreProps: { resource: "game_information" } });
 
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
@@ -20,17 +20,40 @@ const GamesCreate = () => {
         autoComplete="off"
       >
         <TextField
-          {...register("title", {
-            required: "This field is required",
-          })}
-          error={!!(errors as any)?.title}
-          helperText={(errors as any)?.title?.message}
           margin="normal"
           fullWidth
           InputLabelProps={{ shrink: true }}
           type="text"
-          label={"Title"}
-          name="title"
+          label="Player 1"
+        />
+        <TextField
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label="Player 2"
+        />
+        <TextField
+          {...register("game_name", {
+            required: "This field is required",
+          })}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="text"
+          label="Game Mode"
+          name="game_name"
+        />
+        <TextField
+          {...register("game_type", {
+            required: "This field is required",
+          })}
+          margin="normal"
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+          type="number"
+          label="Race"
+          name="game_type"
         />
       </Box>
     </Create>
