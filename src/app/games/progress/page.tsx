@@ -2,6 +2,7 @@
 
 import { Button, Typography } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import { useUpdate } from "@refinedev/core";
 import { DateField, List, ShowButton, useDataGrid } from "@refinedev/mui";
 import React from "react";
 
@@ -14,6 +15,20 @@ const GamesProgress = () => {
         "*, game_players!inner(player_id, approval_status), player_information!inner(first_name, last_name)",
     },
   });
+  const { mutate } = useUpdate();
+
+  const updateStatus = (game_id: string, player_id: number) => {
+    mutate({
+      resource: "game_players",
+      id: game_id,
+      values: {
+        approval_status: "ACCEPTED",
+      },
+      meta: {
+        idColumnName: "game_id",
+      },
+    });
+  };
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -64,11 +79,24 @@ const GamesProgress = () => {
               {gamePlayers.map((player: any, index: number) => (
                 <div key={index}>
                   {player.approval_status === "PENDING" ? (
-                    <Button variant="contained" sx={{ marginRight: 1 }}>
+                    <Button
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                      onClick={() => {
+                        console.log(
+                          "EARL_DEBUG clicked",
+                          params?.row.game_id,
+                          player.player_id,
+                        );
+                        updateStatus(params?.row.game_id, player.player_id);
+                      }}
+                    >
                       Accept
                     </Button>
                   ) : (
-                    <Typography variant="h3">Joined</Typography>
+                    <Typography variant="body1" sx={{ marginRight: 2 }}>
+                      Joined
+                    </Typography>
                   )}
                 </div>
               ))}
@@ -90,7 +118,6 @@ const GamesProgress = () => {
         headerName: "Actions",
         sortable: false,
         renderCell: ({ row }) => {
-          console.log(row);
           return (
             <>
               <ShowButton hideText recordItemId={row.game_id} />
