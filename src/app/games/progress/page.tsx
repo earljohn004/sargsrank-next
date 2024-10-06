@@ -7,6 +7,7 @@ import { DateField, List, ShowButton, useDataGrid } from "@refinedev/mui";
 import React from "react";
 
 const GamesProgress = () => {
+  const { mutate } = useUpdate();
   const { dataGridProps } = useDataGrid({
     resource: "game_information",
     syncWithLocation: true,
@@ -15,7 +16,6 @@ const GamesProgress = () => {
         "*, game_players!inner(player_id, approval_status), player_information!inner(first_name, last_name)",
     },
   });
-  const { mutate } = useUpdate();
 
   const updateStatus = (game_id: string, player_id: number) => {
     mutate({
