@@ -1,21 +1,9 @@
 WITH new_game AS (
     INSERT INTO
-        public.game_information (
-            game_name,
-            game_type,
-            teammode,
-            status,
-            approval_status
-        )
+        public.game_information (game_mode, game_race, status)
     VALUES
-        (
-            '9 ball',
-            'raise to 10',
-            'Duel',
-            'ongoing',
-            'approved'
-        ) RETURNING game_id
-) -- Step 2: Insert players into game_players
+        ('9_BALL', 10, 'NEW') RETURNING game_id
+)
 INSERT INTO
     public.game_players (game_id, player_id, team_id)
 SELECT
