@@ -45,7 +45,7 @@ CREATE TABLE public.game_information (
     game_id UUID PRIMARY KEY DEFAULT gen_random_uuid (),
     game_mode public.game_mode_enum,
     game_race integer null,
-    status public.game_status_enum,
+    status public.game_status_enum DEFAULT 'NEW',
     created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 ) TABLESPACE pg_default;
 
