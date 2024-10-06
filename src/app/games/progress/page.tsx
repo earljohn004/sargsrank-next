@@ -8,6 +8,10 @@ const GamesProgress = () => {
   const { dataGridProps } = useDataGrid({
     resource: "game_information",
     syncWithLocation: true,
+    meta: {
+      select:
+        "*, game_players!inner(player_id), player_information!inner(first_name, last_name)",
+    },
   });
 
   const columns = React.useMemo<GridColDef[]>(
@@ -30,6 +34,11 @@ const GamesProgress = () => {
       {
         field: "status",
         headerName: "Status",
+        type: "text",
+      },
+      {
+        field: "player_id",
+        headerName: "Player 1",
         type: "text",
       },
       {
