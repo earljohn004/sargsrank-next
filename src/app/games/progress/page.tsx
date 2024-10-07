@@ -13,7 +13,7 @@ const GamesProgress = () => {
     syncWithLocation: true,
     meta: {
       select:
-        "*, game_players!inner(player_id, approval_status), player_information!inner(first_name, last_name)",
+        "*, game_players!inner(player_id, approval_status), player_information!game_players(first_name, last_name)",
     },
   });
 
