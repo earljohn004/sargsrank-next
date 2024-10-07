@@ -32,7 +32,7 @@ export const ShowGameId = () => {
   return (
     <Show>
       <Typography variant="h2">Test</Typography>
-      <Typography variant="h4">{players?.game_id}</Typography>
+      <Typography variant="body1">{players?.game_id}</Typography>
     </Show>
   );
 };
