@@ -73,6 +73,7 @@ export default function RootLayout({
                       name: "games-progress",
                       create: "/games/create",
                       list: "/games/progress",
+                      show: "/games/show/:id",
                       meta: {
                         parent: "games",
                         label: "In Progress",

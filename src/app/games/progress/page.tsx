@@ -1,18 +1,34 @@
 "use client";
 
+import { Button, Typography } from "@mui/material";
 import { DataGrid, type GridColDef } from "@mui/x-data-grid";
-import { DateField, List, useDataGrid } from "@refinedev/mui";
+import { useUpdate } from "@refinedev/core";
+import { DateField, List, ShowButton, useDataGrid } from "@refinedev/mui";
 import React from "react";
 
 const GamesProgress = () => {
+  const { mutate } = useUpdate();
   const { dataGridProps } = useDataGrid({
     resource: "game_information",
     syncWithLocation: true,
     meta: {
       select:
-        "*, game_players!inner(player_id), player_information!inner(first_name, last_name)",
+        "*, game_players!inner(player_id, approval_status), player_information!game_players(first_name, last_name)",
     },
   });
+
+  const updateStatus = (game_id: string, player_id: number) => {
+    mutate({
+      resource: "game_players",
+      id: game_id,
+      values: {
+        approval_status: "ACCEPTED",
+      },
+      meta: {
+        idColumnName: "game_id",
+      },
+    });
+  };
 
   const columns = React.useMemo<GridColDef[]>(
     () => [
@@ -53,13 +69,64 @@ const GamesProgress = () => {
         },
       },
       {
+        field: "approval_status",
+        headerName: "Approval Status",
+        minWidth: 200,
+        renderCell: (params) => {
+          const gamePlayers = params?.row.game_players;
+          return (
+            <>
+              {gamePlayers.map((player: any, index: number) => (
+                <div key={index}>
+                  {player.approval_status === "PENDING" ? (
+                    <Button
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                      onClick={() => {
+                        console.log(
+                          "EARL_DEBUG clicked",
+                          params?.row.game_id,
+                          player.player_id,
+                        );
+                        updateStatus(params?.row.game_id, player.player_id);
+                      }}
+                    >
+                      Accept
+                    </Button>
+                  ) : (
+                    <Typography variant="body1" sx={{ marginRight: 2 }}>
+                      Joined
+                    </Typography>
+                  )}
+                </div>
+              ))}
+            </>
+          );
+        },
+      },
+      {
         field: "created_at",
         flex: 1,
         headerName: "Created at",
         minWidth: 250,
-        renderCell: function render({ value }) {
+        renderCell: ({ value }) => {
           return <DateField value={value} />;
         },
+      },
+      {
+        field: "actions",
+        headerName: "Actions",
+        sortable: false,
+        renderCell: ({ row }) => {
+          return (
+            <>
+              <ShowButton hideText recordItemId={row.game_id} />
+            </>
+          );
+        },
+        align: "center",
+        headerAlign: "center",
+        minWidth: 80,
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
