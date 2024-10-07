@@ -33,6 +33,8 @@ export const ShowGameId = () => {
     if (isSuccess) console.log("EARL_DEBUG record ", players);
   }, [players, isSuccess, params]);
 
+  if (isLoading) return <>Loading</>;
+
   return (
     <Show>
       <Typography variant="h2">Test</Typography>
