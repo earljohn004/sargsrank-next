@@ -1,13 +1,8 @@
 "use client";
 
-import { Stack, Typography } from "@mui/material";
-import { useOne, useParsed, useShow } from "@refinedev/core";
-import {
-  DateField,
-  MarkdownField,
-  Show,
-  TextFieldComponent as TextField,
-} from "@refinedev/mui";
+import { Typography } from "@mui/material";
+import { useParsed, useShow } from "@refinedev/core";
+import { Show } from "@refinedev/mui";
 import { useEffect } from "react";
 
 interface ShowGame {
@@ -21,8 +16,7 @@ export const ShowGameId = () => {
     id: params?.id,
     meta: {
       idColumnName: "game_id",
-      select:
-        "*, game_players!inner(player_id), player_information!inner(first_name, last_name)",
+      select: "*, game_players!inner(player_id), game_scores(player_id)",
     },
   });
   const { data, isLoading, isError, isSuccess } = query;
