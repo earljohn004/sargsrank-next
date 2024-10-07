@@ -15,18 +15,23 @@ interface ShowGame {
 }
 
 export const ShowGameId = () => {
+  const { params } = useParsed();
   const { query } = useShow<ShowGame>({
     resource: "game_information",
+    id: params?.id,
     meta: {
       idColumnName: "game_id",
+      select:
+        "*, game_players!inner(player_id), player_information!inner(first_name, last_name)",
     },
   });
   const { data, isLoading, isError, isSuccess } = query;
   const players = query.data?.data;
 
   useEffect(() => {
+    console.log("parsed", params);
     if (isSuccess) console.log("EARL_DEBUG record ", players);
-  }, [players, isSuccess]);
+  }, [players, isSuccess, params]);
 
   return (
     <Show>
