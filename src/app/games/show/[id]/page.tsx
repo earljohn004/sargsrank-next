@@ -9,7 +9,7 @@ interface ShowGame {
   game_id: string;
 }
 
-export const ShowGameId = () => {
+const ShowGameId = () => {
   const { params } = useParsed();
   const { query } = useShow<ShowGame>({
     resource: "game_information",
