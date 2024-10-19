@@ -8,7 +8,7 @@ BEGIN
     INSERT INTO
         public.game_scores (game_id, player_id, score, status, updated_at)
     VALUES
-        (NEW.game_id, NEW.player_id, 1, 'INIT', now());
+        (NEW.game_id, NEW.player_id, 0, 'INIT', now());
     END IF;
 
     RETURN NEW;
