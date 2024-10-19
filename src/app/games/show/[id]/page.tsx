@@ -19,7 +19,7 @@ const ShowGameId = () => {
         `,
     },
   });
-  const { data, isLoading, isError, isSuccess } = query;
+  const { isLoading, isSuccess } = query;
   const gameData = query.data?.data;
 
   const [gameScoreMap, setGameScoreMap] = useState<
