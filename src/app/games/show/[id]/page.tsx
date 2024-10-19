@@ -25,7 +25,7 @@ const ShowGameId = () => {
       idColumnName: "game_id",
       select: `*, 
         game_players!inner(player_id, player_information(first_name, last_name)),
-        game_scores(player_id, score, status)
+        game_scores!inner(*)
         `,
     },
   });
