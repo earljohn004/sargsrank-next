@@ -1,19 +1,32 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useParsed, useShow } from "@refinedev/core";
 import { Show } from "@refinedev/mui";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-interface PlayersInfo {
+interface PlayerInformation {
+  first_name: string;
+  last_name: string;
+}
+
+interface GamePlayers {
   player_id: number;
+  player_information: PlayerInformation;
+}
+
+interface GameScores {
+  player_id: number;
+  score: number;
+  status: string;
 }
 
 interface ShowGame {
   game_id: string;
   game_mode: string;
   game_race: number;
-  game_players: PlayersInfo[];
+  game_players: GamePlayers[];
+  game_scores: GameScores[];
 }
 
 const ShowGameId = () => {
@@ -30,26 +43,46 @@ const ShowGameId = () => {
     },
   });
   const { data, isLoading, isError, isSuccess } = query;
-  const players = query.data?.data;
+  const gameData = query.data?.data;
+
+  const [gameScoreMap, setGameScoreMap] = useState<
+    Map<number, GameScores> | undefined
+  >(undefined);
 
   useEffect(() => {
-    if (isSuccess) console.log("EARL_DEBUG record ", players);
-  }, [players, isSuccess, params]);
+    if (isSuccess) {
+      console.log("EARL_DEBUG record ", gameData);
+      // Convert reponse into map
+      const scoresMap = gameData?.game_scores.reduce((map, item) => {
+        map.set(item.player_id, item);
+        return map;
+      }, new Map<number, GameScores>());
+      setGameScoreMap(scoresMap);
+    }
+  }, [gameData, isSuccess]);
 
   if (isLoading) return <>Loading</>;
 
   return (
     <Show>
-      <Typography variant="h2">Test</Typography>
-      <Typography variant="body1">{players?.game_id}</Typography>
-      <Typography variant="body1">{players?.game_mode}</Typography>
-      <Typography variant="body1">Race to {players?.game_race}</Typography>
+      <Stack gap={2}>
+        <Typography variant="body1">Match Id: {gameData?.game_id}</Typography>
+        <Typography variant="h5">Game type: {gameData?.game_mode}</Typography>
+        <Typography variant="h5">Race to {gameData?.game_race}</Typography>
 
-      {players?.game_players.map((gameDetails) => (
-        <>
-          <Typography variant="h5">{gameDetails.player_id}</Typography>
-        </>
-      ))}
+        {gameData?.game_players.map((gameDetails) => (
+          <>
+            <Typography variant="h5">{gameDetails.player_id}</Typography>
+            <Typography variant="h5">
+              {gameDetails.player_information.first_name}{" "}
+              {gameDetails.player_information.last_name}
+            </Typography>
+            <Typography variant="h3">
+              {gameScoreMap?.get(gameDetails.player_id)?.score}
+            </Typography>
+          </>
+        ))}
+      </Stack>
     </Show>
   );
 };
