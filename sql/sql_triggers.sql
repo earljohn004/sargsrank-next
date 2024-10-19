@@ -1,3 +1,5 @@
+DROP TRIGGER game_players_status_change ON game_players;
+
 create
 or replace function update_game_scores () returns trigger as $$ 
 BEGIN 
