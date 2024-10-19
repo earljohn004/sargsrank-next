@@ -29,7 +29,6 @@ const ShowGameId = () => {
   useEffect(() => {
     if (isSuccess) {
       console.log("EARL_DEBUG record ", gameData);
-      // Convert reponse into map
       const scoresMap = gameData?.game_scores.reduce((map, item) => {
         map.set(item.player_id, item);
         return map;
