@@ -1,6 +1,6 @@
 "use client";
 
-import { Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useParsed, useShow } from "@refinedev/core";
 import { Show } from "@refinedev/mui";
 import { useEffect, useState } from "react";
@@ -53,9 +53,69 @@ const ShowGameId = () => {
               {gameDetails.player_information.first_name}{" "}
               {gameDetails.player_information.last_name}
             </Typography>
-            <Typography variant="h3">
-              {gameScoreMap?.get(gameDetails.player_id)?.score}
-            </Typography>
+            <Grid container>
+              <Grid xs={4}>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setGameScoreMap((prevMap) => {
+                      const currentGameScores = prevMap?.get(
+                        gameDetails.player_id,
+                      );
+
+                      if (!currentGameScores) return prevMap;
+
+                      const updatedGamesScore = {
+                        ...currentGameScores,
+                        score:
+                          currentGameScores.score > 0
+                            ? (currentGameScores.score -= 1)
+                            : 0,
+                      };
+
+                      const newMap = new Map(prevMap);
+                      newMap.set(gameDetails.player_id, updatedGamesScore);
+                      return newMap;
+                    });
+                  }}
+                >
+                  Decrement
+                </Button>
+              </Grid>
+              <Grid xs={4}>
+                <Typography variant="h3">
+                  {gameScoreMap?.get(gameDetails.player_id)?.score}
+                </Typography>
+              </Grid>
+              <Grid xs={4}>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setGameScoreMap((prevMap) => {
+                      const currentGameScores = prevMap?.get(
+                        gameDetails.player_id,
+                      );
+
+                      if (!currentGameScores) return prevMap;
+
+                      const updatedGamesScore = {
+                        ...currentGameScores,
+                        score:
+                          currentGameScores.score >= 0
+                            ? (currentGameScores.score += 1)
+                            : 0,
+                      };
+
+                      const newMap = new Map(prevMap);
+                      newMap.set(gameDetails.player_id, updatedGamesScore);
+                      return newMap;
+                    });
+                  }}
+                >
+                  Increment
+                </Button>
+              </Grid>
+            </Grid>
           </>
         ))}
       </Stack>
