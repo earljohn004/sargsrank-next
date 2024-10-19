@@ -1,13 +1,10 @@
 "use client";
 
-import { Typography } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 import { useParsed, useShow } from "@refinedev/core";
 import { Show } from "@refinedev/mui";
-import { useEffect } from "react";
-
-interface ShowGame {
-  game_id: string;
-}
+import { useEffect, useState } from "react";
+import { ShowGame, GameScores } from "./types";
 
 const ShowGameId = () => {
   const { params } = useParsed();
@@ -16,23 +13,52 @@ const ShowGameId = () => {
     id: params?.id,
     meta: {
       idColumnName: "game_id",
-      select: "*, game_players!inner(player_id), game_scores(player_id)",
+      select: `*, 
+        game_players!inner(player_id, player_information(first_name, last_name)),
+        game_scores!inner(*)
+        `,
     },
   });
   const { data, isLoading, isError, isSuccess } = query;
-  const players = query.data?.data;
+  const gameData = query.data?.data;
+
+  const [gameScoreMap, setGameScoreMap] = useState<
+    Map<number, GameScores> | undefined
+  >(undefined);
 
   useEffect(() => {
-    console.log("parsed", params);
-    if (isSuccess) console.log("EARL_DEBUG record ", players);
-  }, [players, isSuccess, params]);
+    if (isSuccess) {
+      console.log("EARL_DEBUG record ", gameData);
+      const scoresMap = gameData?.game_scores.reduce((map, item) => {
+        map.set(item.player_id, item);
+        return map;
+      }, new Map<number, GameScores>());
+      setGameScoreMap(scoresMap);
+    }
+  }, [gameData, isSuccess]);
 
   if (isLoading) return <>Loading</>;
 
   return (
     <Show>
-      <Typography variant="h2">Test</Typography>
-      <Typography variant="body1">{players?.game_id}</Typography>
+      <Stack gap={2}>
+        <Typography variant="body1">Match Id: {gameData?.game_id}</Typography>
+        <Typography variant="h5">Game type: {gameData?.game_mode}</Typography>
+        <Typography variant="h5">Race to {gameData?.game_race}</Typography>
+
+        {gameData?.game_players.map((gameDetails) => (
+          <>
+            <Typography variant="h5">{gameDetails.player_id}</Typography>
+            <Typography variant="h5">
+              {gameDetails.player_information.first_name}{" "}
+              {gameDetails.player_information.last_name}
+            </Typography>
+            <Typography variant="h3">
+              {gameScoreMap?.get(gameDetails.player_id)?.score}
+            </Typography>
+          </>
+        ))}
+      </Stack>
     </Show>
   );
 };
