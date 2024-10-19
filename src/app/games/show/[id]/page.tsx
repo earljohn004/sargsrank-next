@@ -118,6 +118,10 @@ const ShowGameId = () => {
             </Grid>
           </>
         ))}
+
+        <Button variant="contained" color="success">
+          Save Game
+        </Button>
       </Stack>
     </Show>
   );
