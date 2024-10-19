@@ -4,30 +4,7 @@ import { Stack, Typography } from "@mui/material";
 import { useParsed, useShow } from "@refinedev/core";
 import { Show } from "@refinedev/mui";
 import { useEffect, useState } from "react";
-
-interface PlayerInformation {
-  first_name: string;
-  last_name: string;
-}
-
-interface GamePlayers {
-  player_id: number;
-  player_information: PlayerInformation;
-}
-
-interface GameScores {
-  player_id: number;
-  score: number;
-  status: string;
-}
-
-interface ShowGame {
-  game_id: string;
-  game_mode: string;
-  game_race: number;
-  game_players: GamePlayers[];
-  game_scores: GameScores[];
-}
+import { ShowGame, GameScores } from "./types";
 
 const ShowGameId = () => {
   const { params } = useParsed();
