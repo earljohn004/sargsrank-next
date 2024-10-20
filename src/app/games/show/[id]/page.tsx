@@ -4,9 +4,15 @@ import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useParsed, useShow } from "@refinedev/core";
 import { Show } from "@refinedev/mui";
 import { useEffect, useState } from "react";
-import { ShowGame, GameScores } from "./types";
+import { ShowGame, GameScores, GamePlayers } from "./types";
+
+type ScoreCondition = "increment" | "decrement";
 
 const ShowGameId = () => {
+  const [gameScoreMap, setGameScoreMap] = useState<
+    Map<number, GameScores> | undefined
+  >(undefined);
+
   const { params } = useParsed();
   const { query } = useShow<ShowGame>({
     resource: "game_information",
@@ -22,9 +28,33 @@ const ShowGameId = () => {
   const { isLoading, isSuccess } = query;
   const gameData = query.data?.data;
 
-  const [gameScoreMap, setGameScoreMap] = useState<
-    Map<number, GameScores> | undefined
-  >(undefined);
+  const handleScore = (value: ScoreCondition, gameDetails: GamePlayers) => {
+    setGameScoreMap((prevMap) => {
+      const currentGameScores = prevMap?.get(gameDetails.player_id);
+      if (!currentGameScores) return prevMap;
+
+      let updatedGamesScore;
+      let newScore;
+
+      if (value === "decrement") {
+        newScore =
+          currentGameScores.score > 0 ? (currentGameScores.score -= 1) : 0;
+      } else {
+        newScore =
+          currentGameScores.score >= 0 ? (currentGameScores.score += 1) : 0;
+      }
+
+      // Assign the new score here and copy all previous values
+      updatedGamesScore = {
+        ...currentGameScores,
+        score: newScore,
+      };
+
+      const newMap = new Map(prevMap);
+      newMap.set(gameDetails.player_id, updatedGamesScore);
+      return newMap;
+    });
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -57,27 +87,7 @@ const ShowGameId = () => {
               <Grid xs={4}>
                 <Button
                   variant="contained"
-                  onClick={() => {
-                    setGameScoreMap((prevMap) => {
-                      const currentGameScores = prevMap?.get(
-                        gameDetails.player_id,
-                      );
-
-                      if (!currentGameScores) return prevMap;
-
-                      const updatedGamesScore = {
-                        ...currentGameScores,
-                        score:
-                          currentGameScores.score > 0
-                            ? (currentGameScores.score -= 1)
-                            : 0,
-                      };
-
-                      const newMap = new Map(prevMap);
-                      newMap.set(gameDetails.player_id, updatedGamesScore);
-                      return newMap;
-                    });
-                  }}
+                  onClick={() => handleScore("decrement", gameDetails)}
                 >
                   Decrement
                 </Button>
@@ -90,27 +100,7 @@ const ShowGameId = () => {
               <Grid xs={4}>
                 <Button
                   variant="contained"
-                  onClick={() => {
-                    setGameScoreMap((prevMap) => {
-                      const currentGameScores = prevMap?.get(
-                        gameDetails.player_id,
-                      );
-
-                      if (!currentGameScores) return prevMap;
-
-                      const updatedGamesScore = {
-                        ...currentGameScores,
-                        score:
-                          currentGameScores.score >= 0
-                            ? (currentGameScores.score += 1)
-                            : 0,
-                      };
-
-                      const newMap = new Map(prevMap);
-                      newMap.set(gameDetails.player_id, updatedGamesScore);
-                      return newMap;
-                    });
-                  }}
+                  onClick={() => handleScore("increment", gameDetails)}
                 >
                   Increment
                 </Button>
