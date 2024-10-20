@@ -1,12 +1,18 @@
 "use client";
 
-import { Stack, Typography } from "@mui/material";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useParsed, useShow } from "@refinedev/core";
 import { Show } from "@refinedev/mui";
 import { useEffect, useState } from "react";
-import { ShowGame, GameScores } from "./types";
+import { ShowGame, GameScores, GamePlayers } from "./types";
+
+type ScoreCondition = "increment" | "decrement";
 
 const ShowGameId = () => {
+  const [gameScoreMap, setGameScoreMap] = useState<
+    Map<number, GameScores> | undefined
+  >(undefined);
+
   const { params } = useParsed();
   const { query } = useShow<ShowGame>({
     resource: "game_information",
@@ -19,12 +25,36 @@ const ShowGameId = () => {
         `,
     },
   });
-  const { data, isLoading, isError, isSuccess } = query;
+  const { isLoading, isSuccess } = query;
   const gameData = query.data?.data;
 
-  const [gameScoreMap, setGameScoreMap] = useState<
-    Map<number, GameScores> | undefined
-  >(undefined);
+  const handleScore = (value: ScoreCondition, gameDetails: GamePlayers) => {
+    setGameScoreMap((prevMap) => {
+      const currentGameScores = prevMap?.get(gameDetails.player_id);
+      if (!currentGameScores) return prevMap;
+
+      let updatedGamesScore;
+      let newScore;
+
+      if (value === "decrement") {
+        newScore =
+          currentGameScores.score > 0 ? (currentGameScores.score -= 1) : 0;
+      } else {
+        newScore =
+          currentGameScores.score >= 0 ? (currentGameScores.score += 1) : 0;
+      }
+
+      // Assign the new score here and copy all previous values
+      updatedGamesScore = {
+        ...currentGameScores,
+        score: newScore,
+      };
+
+      const newMap = new Map(prevMap);
+      newMap.set(gameDetails.player_id, updatedGamesScore);
+      return newMap;
+    });
+  };
 
   useEffect(() => {
     if (isSuccess) {
@@ -53,11 +83,35 @@ const ShowGameId = () => {
               {gameDetails.player_information.first_name}{" "}
               {gameDetails.player_information.last_name}
             </Typography>
-            <Typography variant="h3">
-              {gameScoreMap?.get(gameDetails.player_id)?.score}
-            </Typography>
+            <Grid container>
+              <Grid xs={4}>
+                <Button
+                  variant="contained"
+                  onClick={() => handleScore("decrement", gameDetails)}
+                >
+                  Decrement
+                </Button>
+              </Grid>
+              <Grid xs={4}>
+                <Typography variant="h3">
+                  {gameScoreMap?.get(gameDetails.player_id)?.score}
+                </Typography>
+              </Grid>
+              <Grid xs={4}>
+                <Button
+                  variant="contained"
+                  onClick={() => handleScore("increment", gameDetails)}
+                >
+                  Increment
+                </Button>
+              </Grid>
+            </Grid>
           </>
         ))}
+
+        <Button variant="contained" color="success">
+          Save Game
+        </Button>
       </Stack>
     </Show>
   );
